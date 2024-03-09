@@ -14,7 +14,7 @@ class background {
     'birth',
   ];
   image_sequence = [];
-  current_background = 1;
+  current_background = 0;
   constructor(Images) {
     this.Images = Images;
     this.setImageNames(Images);

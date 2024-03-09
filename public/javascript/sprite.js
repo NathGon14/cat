@@ -8,7 +8,7 @@ class Sprite {
   audio_file = '/audio/cat.wav';
   current_frame = 0;
   number_of_animation = 6 - 1;
-  speed = 3;
+  speed = 3; //3
   direction = 1;
   canvas_width = 0;
   canvas_height = 0;

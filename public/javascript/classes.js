@@ -25,7 +25,6 @@ class Media {
   pauseAll() {
     this.current_playing.pause();
     for (const audio of this.audio_list) {
-      console.log(audio.src);
       audio.pause();
     }
   }
@@ -177,6 +176,65 @@ class BubbleChat {
     Promise.allSettled(this.promises).then(() => {
       this.canNext = true;
     });
+  }
+}
+
+//change this
+class ScrollPaper {
+  current_message_index = 0;
+  constructor() {}
+  OBJECT_KEYS = ['nathaniel', 'zucker'];
+  PROPERTIES = {
+    nathaniel: {
+      text: 'sdfsdfasdfasdfasd',
+      name: 'VonGela',
+    },
+    zucker: {
+      text: ' sand odkfadshf naskdfhaksdjf ',
+      name: 'hehehe hehehehehehe',
+    },
+  };
+
+  add(increment, decrement, messageDiv) {
+    this.parentMessage = messageDiv;
+    this.remove();
+    this.change();
+    //remove the scroll
+
+    $(increment).on('click', () => {
+      let currentIndex = this.current_message_index + 1;
+      if (currentIndex >= this.OBJECT_KEYS.length - 1) {
+        this.remove();
+        return;
+      }
+      this.current_message_index = Math.min(
+        this.OBJECT_KEYS.length - 1,
+        currentIndex
+      );
+      this.change();
+    });
+    $(decrement).on('click', () => {
+      let currentIndex = this.current_message_index - 1;
+      if (currentIndex < 0) {
+        this.remove();
+        return;
+      }
+      this.current_message_index = Math.max(0, currentIndex);
+      this.change();
+    });
+  }
+  change() {
+    let key = this.OBJECT_KEYS[this.current_message_index];
+    let data = this.PROPERTIES[key];
+    let parent = this.parentMessage;
+    parent.html('');
+    parent.append($('<p></p>').text(data['name']));
+    parent.append($('<p></p>').text(data['text']));
+    parent.append($('<p></p>').text(key));
+  }
+  remove() {
+    this.current_message_index = 0;
+    $('.scroll').remove();
   }
 }
 css = {

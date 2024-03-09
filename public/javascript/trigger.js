@@ -13,12 +13,15 @@ class Trigger {
       this.current_stage();
     }
   }
-  //trigger
-  // {
-  //   name:"",
-  //   eeven
-  // }
-  create() {}
+  last_trigger_name = null;
+  pending_event;
+  addTrigger(customEvent) {
+    this.pending_event = customEvent;
+  }
+  checkTrigger() {
+    let name = this.last_trigger_name;
+    this.last_trigger_name = this.pending_event(name);
+  }
 }
 
 function onelineAnimation(textWrapper, animationProp) {
@@ -110,8 +113,6 @@ class Holder {
   addNormal(prop) {
     let texts = prop.text;
     let css = prop.css;
-    let animationProp = prop.animation;
-
     let div = $('<div>');
     div
       .css({
@@ -136,10 +137,15 @@ class Holder {
     let container = $('<div></div>').addClass('message-container');
     scroll.append(container);
     let messages = $('<div></div>').addClass('messages');
+    let buttons = $('<div></div>').addClass('buttons');
+    let decrement = $('<button>-</button>');
+    let increment = $('<button>+</button>');
+    buttons.append(decrement);
+    buttons.append(increment);
+    container.append(buttons);
     container.append(messages);
-    for (let index = 0; index < 3; index++) {
-      messages.append = $('<p></p>');
-    }
+
+    scrollPaper.add(increment, decrement, messages);
 
     $('#controls').append(scroll);
   }

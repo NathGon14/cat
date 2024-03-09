@@ -34,17 +34,17 @@ body,html{
 
     height: 100%;
 
-    background-color: yellow;
+    background-color: black;
     display: grid;
     place-items: center;    
 }
 #canvas {
-
-    
+  border-radius: 10px;
     background-color: white;
   
 }
 .container{
+  border-radius: 10px;
     position: relative;
     background-color: white;
 }
@@ -62,8 +62,10 @@ p{
     margin: 0;
 }
 .scroll{
-    position: relative;
-  
+    position: absolute;
+    width: 100%;
+    top:0;
+    background-color: #0b0a02b0;
     height: 100%;
 
     
@@ -87,7 +89,55 @@ p{
     color: red;
     text-shadow: 1px 1px 5px white;
     letter-spacing: 1px;
-   
+    height: 400px;
+    text-transform: capitalize;
+}
+.buttons{
+  width: 80%;
+ position: absolute;
+ bottom: 350px;
+
+left: 130px;
+font-family: "bubbleblack";
+
+}
+
+.buttons > button:nth-child(1){
+
+  display: inline-block;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  padding: 0 24px;
+  border-radius: 50px;
+  min-width: 100px;
+  height: 50px;
+  font-size: 2em;
+
+  background-color: #FEF7E5;
+  box-shadow: 1px 5px #000000;
+  font-weight: 500;
+  color: red;
+
+}
+
+.buttons > button:nth-child(2){
+  float: right;
+ 
+  display: inline-block;
+  outline: 0;
+  border: none;
+  cursor: pointer;
+  padding: 0 24px;
+  border-radius: 50px;
+  min-width: 100px;
+  height: 50px;
+  font-size: 2em;
+  background-color: #DA905E;
+   box-shadow: 1px 5px #000000;
+  font-weight: 500;
+  color: white;
+
 }
 .messages > p:nth-child(1){
     font-weight: bold;
@@ -98,6 +148,7 @@ p{
   }
   .messages > p:nth-child(2){
     text-align: justify;
+    
     position: relative;
     left: 35px;
     font-size: 1.7em;
@@ -112,6 +163,10 @@ p{
   .messages > p:nth-child(3){
     text-align: right;
     font-size: 2em;
+    position: absolute;
+    right: 0;
+    bottom: -20px;
+
     letter-spacing: 5px;
     color: red;
     font-weight: bold;
@@ -140,7 +195,7 @@ p{
   .messages > p:nth-child(2)::-webkit-scrollbar-thumb {
     background-color: gold;
     outline: 1px solid black;
-  
+    
     border-radius: 10px;
   }
 

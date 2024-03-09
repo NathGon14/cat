@@ -46,16 +46,10 @@ const loadImages = () => {
 loadImages();
 
 function animate() {
-  // if (true) {
-  //   window.requestAnimationFrame(animate);
-  //   return;
-  // }
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   actions();
   bg.draw(c);
   cat.draw(c);
-
   setTimeout(() => {
     animate();
   }, 1000 / fps);
@@ -64,20 +58,17 @@ function animate() {
 //write how the game progress
 function actions() {
   //prioritize the chat
-
   if (!message.done()) {
     cat.stopMove();
-
     return;
   }
-
   //check if the background is need for changing
 
   bg.changeBg(cat, canvas);
 
   trigger.listen(bg);
   //change the music background
-  openingScroll();
+  trigger.checkTrigger();
   cat.move();
   //draw the cat and the background
 }

@@ -19,7 +19,7 @@ const months = {
     '/audio/christmas.wav',
   ],
   CSS_NAME: ['day', 'night', 'day', 'halloween', 'christmas', 'day', 'night'],
-
+  //change this
   VIDEO_STAMPS: [
     { start: 0, end: 3 },
     { start: 0, end: 3 },
@@ -29,6 +29,8 @@ const months = {
     { start: 0, end: 3 },
     { start: 0, end: 3 },
   ],
+
+  //change this
   MESSAGE: [
     'this this message is for junethis message is for junethis message is for junethis message is for junethis message is for junethis message is for junethis message is for junethis message is for junethis message is for junethis message is for june is for last message',
     'this message is for JULY',
@@ -135,12 +137,32 @@ $(window).on('load', () => {
     };
   });
 
-  const openingScroll = () => {
+  const openingScroll = (name) => {
+    event_name = 'scroll';
     trigger_width = 40;
     trigger_x = $(canvas).width() / 2;
-
-    if (cat.x < trigger_width + trigger_x && cat.x + cat.width > trigger_x) {
-      console.log('colision');
+    //this will fire if the cat is not yet fire the opening event
+    if (
+      cat.x < trigger_width + trigger_x &&
+      cat.x + cat.width > trigger_x &&
+      bg.getIndex() == 8 &&
+      message.done() &&
+      name != event_name
+    ) {
+      cat.stopMove();
+      holder.addScroll();
+      return event_name;
+      //the event will not fire but its firing because its in the posiution of trigeering
+    } else if (
+      cat.x < trigger_width + trigger_x &&
+      cat.x + cat.width > trigger_x &&
+      bg.getIndex() == 8 &&
+      name == event_name
+    ) {
+      return event_name;
+    } else {
+      //not in the position to fire
+      return;
     }
   };
 
@@ -150,11 +172,11 @@ $(window).on('load', () => {
     IS_IMPORTANT = true;
 
     //black out
-    console.log(lastEvent);
+
     cat.stopMove();
     cat.toggle();
     media.pauseAll();
-    document.getElementById('');
+
     $('#balloon-container').css({ 'z-index': 10, background: 'black' });
     await new Promise((resolve, reject) => {
       //wait for 3 seconds
@@ -192,14 +214,11 @@ $(window).on('load', () => {
     await new Promise((resolve, reject) => {
       //wait for 2 seconds
       setTimeout(() => {
+        //change this
         message.open('hellow');
         resolve();
       }, 2000);
     });
-    await message.proceed().then(() => {
-      console.log('done all the');
-    });
-
     cat.toggle();
   };
 
@@ -212,18 +231,23 @@ $(window).on('load', () => {
   media = new Media(months.AUDIO);
   message = new BubbleChat(months.MESSAGE);
   trigger = new Trigger(stages);
+  scrollPaper = new ScrollPaper();
+  trigger.addTrigger(openingScroll);
 
-  // bg.draw(c);
-  // cat.draw(c);
+  bg.draw(c);
+  cat.moveMiddle();
+  cat.draw(c);
 });
 
-$(window).on('keydown', (event) => {
+document.addEventListener('click', function () {
   if (!interacted) {
     interacted = true;
 
     window.requestAnimationFrame(animate);
   }
+});
 
+$(window).on('keydown', (event) => {
   if (!message.done() && event.key == ' ') {
     message.next();
   } else if (event.key == 'd' || event.key == 'ArrowRight') {
